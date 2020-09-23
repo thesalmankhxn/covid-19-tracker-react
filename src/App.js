@@ -13,6 +13,7 @@ import './App.scss';
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('worldwide');
+  const [countryInfo, setCountryInfo] = useState({});
 
   useEffect(() => {
     // Code inside here will run once
@@ -42,11 +43,16 @@ function App() {
     const countryCode = e.target.value;
     setCountry(countryCode);
 
-    const url = countryCode === 'worldwide' ? 'https://disease.sh/v3/covid-19/all' : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+    const url = countryCode === 'worldwide' 
+    ? 'https://disease.sh/v3/covid-19/all' 
+    : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
 
-    // https://disease.sh/v3/covid-19/all
-    // https://disease.sh/v3/covid-19/countries/[country_code]
-  }
+    await fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      
+    });
+  };
 
   return (
     <div className="app">
