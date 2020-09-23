@@ -11,13 +11,16 @@ function App() {
   const [country, setCountry] = useState('worldwide');
 
   useEffect(() => {
+    // Code inside here will run once
+    // when the component loads and not again
+
     const getCountriesData = async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
       .then((res) => res.json())
       .then((data) => {
         const countries = data.map((country) => ({
-            name: country.country,
-            value: country.countryInfo.iso2
+            name: country.country, // United Kingdom, United States
+            value: country.countryInfo.iso2 //UK, US
           }
         ));
 
@@ -26,6 +29,8 @@ function App() {
     };
 
     getCountriesData();
+
+    // or will run when the below var changes (updates)
   }, []);
 
   const onCountryChange = async (e) => {
