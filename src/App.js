@@ -4,6 +4,7 @@ import {
   FormControl,
   Select,
 } from "@material-ui/core";
+import InfoBox from './components/InfoBox';
 import './App.scss';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
     // or will run when the below var changes (updates)
   }, []);
 
+  // grab the selected country
   const onCountryChange = async (e) => {
     const countryCode = e.target.value;
     setCountry(countryCode);
@@ -43,18 +45,31 @@ function App() {
       <div className="app__header">
         <h1>COVID 19 TRACKER</h1>
         <FormControl className="app__dropdown">
+
           <Select
             variant="outlined"
             onChange={onCountryChange}
             value={country}
           >
-            <MenuItem value="worldwide">Worldwide</MenuItem>
-            {countries.map( country => (
-              <MenuItem value={country.value}>{country.name}</MenuItem>
-            ))}
+
+          {/* add an option WORLDWIDE &
+           mappig through all the countries */}
+          <MenuItem value="worldwide">Worldwide</MenuItem>
+          {countries.map( country => (
+            <MenuItem value={country.value}>{country.name}</MenuItem>
+          ))}
 
           </Select>
         </FormControl>
+      </div>
+
+      {/* INFO BOXes */}
+      <div className="app__stats">
+            <InfoBox title="Coronavirus Cases" />
+
+            <InfoBox title="Recovered" />
+            
+            <InfoBox title="Deaths" />
       </div>
     </div>
   );
