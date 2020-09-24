@@ -11,9 +11,17 @@ import Map from './components/Map';
 import './App.scss';
 
 function App() {
+  // Array of all countries to map on dropdown
   const [countries, setCountries] = useState([]);
+  // Sets country code
   const [country, setCountry] = useState('worldwide');
+  // Sets individual country's data
   const [countryInfo, setCountryInfo] = useState({});
+
+  // 
+  useEffect(() => {
+
+  }, []);
 
   useEffect(() => {
     // Code inside here will run once
@@ -50,7 +58,9 @@ function App() {
     await fetch(url)
     .then(res => res.json())
     .then(data => {
-      
+
+      // All of the data from the disease.sh API (response)
+      setCountryInfo(data);
     });
   };
 
@@ -80,9 +90,9 @@ function App() {
 
         {/* INFO BOXes */}
         <div className="app__stats">
-          <InfoBox title="Coronavirus Cases" />
-          <InfoBox title="Recovered" />
-          <InfoBox title="Deaths" />
+          <InfoBox title="Coronavirus Cases" cases={countryInfo.todayCases} total={countryInfo.cases}/>
+          <InfoBox title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered} />
+          <InfoBox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths} />
         </div>
 
         {/* Map */}
