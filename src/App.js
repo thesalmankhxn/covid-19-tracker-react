@@ -5,6 +5,7 @@ import {
   Select,
   Card,
   CardContent,
+  Table,
 } from "@material-ui/core";
 import InfoBox from './components/InfoBox';
 import Map from './components/Map';
@@ -17,9 +18,16 @@ function App() {
   const [country, setCountry] = useState('worldwide');
   // Sets individual country's data
   const [countryInfo, setCountryInfo] = useState({});
+  // Sets countries data to table
+  const [tableData, setTableData] = useState([]);
 
-  // 
   useEffect(() => {
+    // when page loads All [worldwide] data is displyed
+    fetch("https://disease.sh/v3/covid-19/all")
+    .then((res) => res.json())
+    .then(data => {
+      setCountryInfo(data);
+    });
 
   }, []);
 
@@ -37,6 +45,8 @@ function App() {
           }
           ));
 
+          // 
+          setTableData(data);
           setCountries(countries);
         });
     };
@@ -102,6 +112,7 @@ function App() {
         <CardContent>
           <h3>Live Cases by Country</h3>
           {/* Table */}
+          <Table countries={tableData} />
           <h3>Worldwide new cases</h3>
           {/* Graph */}
         </CardContent>
