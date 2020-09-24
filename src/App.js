@@ -9,7 +9,9 @@ import {
 import InfoBox from './components/InfoBox';
 import Map from './components/Map';
 import Table from './components/Table';
+import LineGraph from './components/LineGraph';
 import './App.scss';
+import { sortData } from './util';
 
 function App() {
   // Array of all countries to map on dropdown
@@ -45,8 +47,10 @@ function App() {
           }
           ));
 
+          // Sorted Data
+          const sortedData = sortData(data);
           // 
-          setTableData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -115,6 +119,7 @@ function App() {
           <Table countries={tableData} />
           <h3>Worldwide new cases</h3>
           {/* Graph */}
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
